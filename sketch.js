@@ -47,7 +47,9 @@ function siguienteGeneracion(){
   }
   tablero = tablero_siguiente;
   generaciones = generaciones + 1;
-  print(generaciones);
+  if(generaciones == 500){
+    noLoop();
+  }
 }
 
 function cuentaVecinos(x, y){
@@ -85,4 +87,4 @@ function creaTablero(cols, ren){
   return tab;
 }
 
-//NO OLVIDAR HACER EL MERGE DE LAS 2 RAMAS
+//NO OLVIDAR HACER EL MERGE DE LAS 2 RAMAS, PERO SOLO HE SUBIDO UNA RAMA :v
