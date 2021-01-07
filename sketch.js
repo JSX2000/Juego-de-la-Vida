@@ -2,6 +2,7 @@ let tablero;
 let columnas;
 let renglones
 let celda_tamanio = 10;
+let generaciones = 0;
 
 function setup() {
   createCanvas(600, 400);
@@ -11,16 +12,20 @@ function setup() {
   for(let x = 1; x < columnas - 1; x++){
     for(let y = 1; y < renglones - 1; y++){
       tablero[x][y] = floor(random(2));
-      //print(tablero[x][y]);
     }
   }
-  //print(tablero);
 }
 
 function draw() {
-  background(220);
+  background(225);
   pintaTablero();
   siguienteGeneracion();
+  fill('white');
+  stroke(0);
+  rect(20, 360, 130, 20)
+  fill(50)
+  text('Generaciones: ', 22, 375)
+  text(generaciones, 120, 375)
 }
 
 function siguienteGeneracion(){
@@ -41,6 +46,8 @@ function siguienteGeneracion(){
     }
   }
   tablero = tablero_siguiente;
+  generaciones = generaciones + 1;
+  print(generaciones);
 }
 
 function cuentaVecinos(x, y){
@@ -62,7 +69,7 @@ function pintaTablero(){
       let posx = x*celda_tamanio;
       let posy = y*celda_tamanio;
       if(tablero[x][y] == 1){
-        fill(100, 0, 215);
+        fill(floor(random(0, 255)), floor(random(0, 255)), floor(random(0, 255)));
         stroke(0);
         rect(posx, posy, celda_tamanio, celda_tamanio);
       }
@@ -77,3 +84,5 @@ function creaTablero(cols, ren){
   }
   return tab;
 }
+
+//NO OLVIDAR HACER EL MERGE DE LAS 2 RAMAS
