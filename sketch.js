@@ -3,6 +3,7 @@ let columnas;
 let renglones
 let celda_tamanio = 10;
 let generaciones = 0;
+let checkbox;
 
 function setup() {
   createCanvas(600, 400);
@@ -14,6 +15,8 @@ function setup() {
       tablero[x][y] = floor(random(2));
     }
   }
+  checkbox = createCheckbox('Detener/Continuar Simulación', false);
+  checkbox.changed(myCheckedEvent);
 }
 
 function draw() {
@@ -22,8 +25,11 @@ function draw() {
   siguienteGeneracion();
   fill('white');
   stroke(0);
+  contadorVidas();
+  contadorMuertes();
+  contadorNacimientos();
   rect(20, 360, 130, 20)
-  fill(50)
+  fill(255)
   text('Generaciones: ', 22, 375)
   text(generaciones, 120, 375)
 }
@@ -45,9 +51,10 @@ function siguienteGeneracion(){
       }
     }
   }
+  tablero_anterior = tablero;
   tablero = tablero_siguiente;
   generaciones = generaciones + 1;
-  if(generaciones == 500){
+  if(generaciones == 10000){
     noLoop();
   }
 }
@@ -85,6 +92,63 @@ function creaTablero(cols, ren){
     tab[i] = new Array(ren);
   }
   return tab;
+}
+
+
+function contadorVidas() {
+  let vidas = 0;
+  for(let x=1; x<columnas-1; x+=1)  {
+    for(let y=1; y<renglones-1; y+=1)  {
+      if (tablero[x][y] ==1) {
+        vidas+=1;
+      }
+    }
+  }
+  fill('white')
+  rect(20,336,130,20)
+  fill(50)
+  text('Vidas: ', 22, 350)
+  text(vidas, 120, 350)
+}
+
+function contadorMuertes() {
+  let muertes = 0;
+  for(let x=1; x<columnas-1; x+=1)  {
+    for(let y=1; y<renglones-1; y+=1)  {
+      if (tablero_anterior[x][y]==1 && tablero[x][y]==0) {
+        muertes+=1;
+      }
+    }
+  }
+  fill('white')
+  rect(20,310,130,20)
+  fill(50)
+  text('Muertes: ', 22, 325)
+  text(muertes, 120, 325)
+}
+
+function contadorNacimientos() {
+  let nacimientos = 0;
+  for(let x=1; x<columnas-1; x+=1)  {
+    for(let y=1; y<renglones-1; y+=1)  {
+      if (tablero_anterior[x][y]==0 && tablero[x][y]==1) {
+        nacimientos+=1;
+      }
+    }
+  }
+  fill('white');
+  rect(20,285,130,20);
+  fill(50);
+  text('Nacimientos: ', 22, 300);
+  text(nacimientos, 120, 300);
+}
+
+function myCheckedEvent() {
+  if (this.checked()) {
+    noLoop();
+  } else {
+    loop();
+  }
 }
 
 //NO OLVIDAR HACER EL MERGE DE LAS 2 RAMAS, PERO SOLO HE SUBIDO UNA RAMA :v
