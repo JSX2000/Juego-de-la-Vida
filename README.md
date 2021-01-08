@@ -1,7 +1,7 @@
 # Juego-de-la-Vida
 
-Jaime Arturo García Pulid0        A01652094
-Manuel Hernández                  A01652985
+Jaime Arturo García Pulido (IRS)        A01652094
+Manuel Hernández (ITC)                  A01652985
 
 LO QUE ENCONTRAMOS
 
